@@ -17,15 +17,15 @@ CREATE TABLE PERSON (
     email TEXT UNIQUE NOT NULL,
     state CHAR(4),
     zipCode INTEGER,
-    restriction CHAR(4),
-    FOREIGN KEY driversID INTEGER
+    restriction CHAR(4)
+    -- FOREIGN KEY driversID INTEGER
 );
 
 CREATE TABLE MISC (
     organDonor BOOLEAN,
-    veteran BOOLEAN,
-    FOREIGN KEY driversID INTEGER
-)
+    veteran BOOLEAN
+    -- FOREIGN KEY driversID INTEGER
+);
 
 
 CREATE TABLE BIO_INFORMATION (
@@ -35,20 +35,19 @@ CREATE TABLE BIO_INFORMATION (
     hairColor Char(4),
     bloodType CHAR(4),
     weight FLOAT,
-    height FLOAT,
+    height FLOAT
 );
 
 CREATE TABLE PICTURE (
     -- TODO: How to represent a picture correctly
-    pictureAddress CHAR(4),
-    FOREIGN KEY driversID INTEGER
-
+    pictureAddress CHAR(4)
+    -- FOREIGN KEY driversID INTEGER
 );
 
 CREATE TABLE USER_CREDENTIALS (
-    nickname CHAR(4),
-    password int NOT NULL,
-    FOREIGN KEY driversID INTEGER
+    password INTEGER NOT NULL,
+    nickname CHAR(4)
+    -- FOREIGN KEY driversID INTEGER
 );
 
 
@@ -56,38 +55,38 @@ CREATE TABLE INCIDENT_HISTORY (
     -- One of A, B, C, D, E, F
     incidentType CHAR(1) NOT NULL,
     incidentDate DATE NOT NULL,
-    fineAmount FLOAT NOT NULL,
-    FOREIGN KEY driversID INTEGER
+    fineAmount FLOAT NOT NULL
+    -- FOREIGN KEY driversID INTEGER
 );
 
 
 CREATE TABLE EMERGENCY_CONTACT_INFO (
     firstName TEXT,
     lastName TEXT,
-    phoneNumber INTEGER,
-    FOREIGN KEY driversID INTEGER
+    phoneNumber INTEGER
+    -- FOREIGN KEY driversID INTEGER
 );
 
 
 CREATE TABLE PRE_VALIDATION_DATA (
     roadTestResult TEXT,
     statusOfLearnersPermit TEXT,
-    dmvOffice TEXT,
-    FOREIGN KEY driversID INTEGER
+    dmvOffice TEXT
+    -- FOREIGN KEY driversID INTEGER
 );
 
 CREATE TABLE LICENSE_ASSOCIATED_INFORMATION (
     issueDate DATE,
     expirationDate DATE,
-    VehicleType CHAR(1),
-    FOREIGN KEY driversID INTEGER
+    VehicleType CHAR(1)
+    -- FOREIGN KEY driversID INTEGER
 
 );
 CREATE TABLE VEHICLE_INFORMATION (
     vehicleType TEXT,
     description TEXT,
-    licensePlate TEXT,
-    FOREIGN KEY driversID INTEGER
+    licensePlate TEXT
+    -- FOREIGN KEY driversID INTEGER
 );
 
 
