@@ -8,6 +8,9 @@ RUN mkdir /usr/src/app/
 # set the new folder we just created as the working directory
 WORKDIR /usr/src/app/
 
+# needed so python cryptography stuff can be installed
+RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev
+
 # copy everything from the current folder (the one where this 
 # Dockerfile lives) into the folder we created above. 
 COPY . /usr/src/app/

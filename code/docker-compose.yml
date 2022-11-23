@@ -10,6 +10,10 @@ services:
     # in the_app/ folder
     build: the_app/
 
+    # mount the application src folder inside the container
+    volumes:
+      - ./the_app:/usr/src/app
+
     # map host port 9000 to container port 4000
     ports: 
       - 9000:4000
@@ -22,6 +26,11 @@ services:
     ports:
       - 3306:3306
 
+    # anything in /docker-entrypoint-initdb.d in the container will be exectued on when the container is created 
+    volumes:
+      - ./db_bootstrap:/docker-entrypoint-initdb.d:ro
+
     # provide an environtment variable containg whatever we want the root password to be.
     environment:
       - MYSQL_ROOT_PASSWORD=iker123
+
