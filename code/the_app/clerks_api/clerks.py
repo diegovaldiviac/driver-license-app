@@ -11,10 +11,10 @@ def root_url():
 
 @clerks_blueprint.route('/clerks')
 def get_all_clerks():
-    return f'<h1> Chupala Mateo. </h1>'
+    return f'<h1> I am a sub page in the clerk url. </h1>'
 
 
 # This route will handle the user going to /users/<some_id>
 @clerks_blueprint.route("/clerks/<idNumber>")
 def handle_user_with_id(idNumber):
-    return f'<h2>A Mateo le gusta: {idNumber} id.'
+    return f'<h2>Testing the speicific clerk: {idNumber} id.'
