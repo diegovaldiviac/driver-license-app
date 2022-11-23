@@ -89,6 +89,35 @@ CREATE TABLE VEHICLE_INFORMATION (
     -- FOREIGN KEY driversID INTEGER
 );
 
+CREATE TABLE CLERK_INFORMATION (
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL, 
+    employeeID INTEGER, 
+    
+); 
+
+CREATE TABLE CLERK_ACCESS_CREDENTIALS (
+    nickname TEXT,
+    password TEXT,
+
+);
+
+CREATE TABLE APPLICATION_STATUS (
+    licenseStatus TEXT,
+    pendingFirstApproval TEXT
+);
+
+CREATE TABLE SYSADMIN_INFORMATION(
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL, 
+    employeeID INTEGER,
+);
+
+CREATE TABLE SYSADMIN_ACCESS_CREDENTIALS (
+    nickname TEXT,
+    password TEXT,
+
+);
 
 
 -- Since as of now, there are no foreign keys that relate all the db, assume that the 
