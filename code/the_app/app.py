@@ -1,7 +1,7 @@
 
 # import the Flask framework
 from flask import Flask, jsonify
-from flasketx.mysql import MySQL
+from flaskext.mysql import MySQL
 
 # import blueprints
 from clerks_api.clerks import clerks_blueprint
@@ -10,6 +10,11 @@ from persona_api.persona import persona_blueprint
 
 # create a flask object
 app = Flask(__name__)
+
+# Register blueprints with flask app object.
+app.register_blueprint(clerks_blueprint, url_prefix='/clrk')
+app.register_blueprint(persona_blueprint, url_prefix='/pers')
+
 
 # add  db config variables to the pp object
 app.config['MYSQL_DATABASE_HOST'] = 'db'
@@ -24,26 +29,25 @@ db_connection = MySQL()
 db_connection.init_app(app)
 
 
-# Register blueprints with flask app object.
-app.register_blueprint(clerks_blueprint, url_prefix='/clrk')
-app.register_blueprint(persona_blueprint, url_prefix='/pers')
 
 # the @app.route("/") connects the hello_word function to the URL / 
 @app.route("/")
-def hello_world():
-    return "I am a function appended to the root url!"
+def root_url():
+    return "Welcome to the root url!"
 
-# this route will handle the user going to /bigHello
-# It returns a different string and with the H1 html tag
-@app.route("/bigHello")
-def big_hello_world():
-    return "<h1>A Big Hello to you!!!!</h1>"
 
-# This route will handle the user going to /users/<some_id>
-@app.route("/clrk/<idNumber>")
-def handle_user_with_id(idNumber):
-    return f'<h2>You asked for {idNumber} id.'
-
+"""
+@app.route('/db_test')
+def db_testing():
+   cur = db_connection.get_db().cursor()
+   cur.execute('select * from test_table')
+   row_headers = [x[0] for x in cur.description]
+   json_data = []
+   theData = cur.fetchall()
+   for row in theData:
+       json_data.append(dict(zip(row_headers, row)))
+   return jsonify(json_data)
+"""
 
 # If this file is being run directly, then run the application 
 # via the app object. 
