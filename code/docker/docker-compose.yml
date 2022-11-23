@@ -1,0 +1,27 @@
+version: "3.9"
+
+# creating the services that are part of our
+# application stack
+services: 
+
+  # Backend of Docker
+  my-api-service:
+    # tells docker compose to use the Dockerfile 
+    # in the_app/ folder
+    build: the_app/
+
+    # map host port 9000 to container port 4000
+    ports: 
+      - 9000:4000
+    
+  # Database of Docker
+  db:
+    #sql version
+    image: mysql:8
+    #mapping container port 3306 to host port 3306 (3306 is default mysql port) (backend and server and db are in the backend)
+    ports:
+      - 3306:3306
+
+    # provide an environtment variable containg whatever we want the root password to be.
+    environment:
+      - MYSQL_ROOT_PASSWORD=iker123

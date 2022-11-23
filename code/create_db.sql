@@ -1,5 +1,5 @@
 CREATE DATABASE dlars_db;
-CREATE USER 'webapp'@'%' IDENTIFIED BY '1cabros23';
+CREATE USER 'webapp'@'%' IDENTIFIED BY 'iker123';
 GRANT ALL PRIVILEGES ON dlars_db.* TO 'webapp'@'%';
 FLUSH PRIVILEGES;
 
