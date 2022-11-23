@@ -55,7 +55,7 @@ CREATE TABLE INCIDENT_HISTORY (
     -- One of A, B, C, D, E, F
     incidentType CHAR(1) NOT NULL,
     incidentDate DATE NOT NULL,
-    fineAmount FLOAT NOT NULL
+    fineAmount FLOAT
     -- FOREIGN KEY driversID INTEGER
 );
 
@@ -94,11 +94,9 @@ CREATE TABLE VEHICLE_INFORMATION (
 -- Since as of now, there are no foreign keys that relate all the db, assume that the 
 
 INSERT INTO PERSON ( firstName, middleName, lastName, email,state, zipCode, restriction) -- These would need a DriversID 
-VALUES ("Jane", "Marie", "Doe", "j.doe@gmail.com", 'MA', 02111, 'B'), 
-        ("Joseph", NULL, "Doe", "jo.doe@gmail.com", 'MA', 02111, NULL), 
-        ("John", NULL, "Smith", "johnsmith@company.com", 'MA', 02120, 'B'); 
-
-
+VALUES ('Jane', 'Marie', 'Doe', 'j.doe@gmail.com', 'MA', 02111, 'B'),
+        ('Joseph', NULL, 'Doe', 'jo.doe@gmail.com', 'MA', 02111, NULL),
+        ('John', NULL, 'Smith', 'johnsmith@company.com', 'MA', 02120, 'B');
 
 
 INSERT INTO MISC (organDonor, veteran)
@@ -109,9 +107,9 @@ VALUES  (TRUE, FALSE),
 -- Used Imperial system (lbs and inches respectively)
 -- One of M, F, X (None Binary)
 INSERT INTO BIO_INFORMATION (Gender,eyeColor ,hairColor ,bloodType ,weight,height)
-VALUES ('F', 'BRO', "BRO", "O+","120", "55"), 
-       ('M', 'BLU', "BRO", "AB-","165", "65"),
-       ('X', 'BRO', "BRO", "A+","135", "60");
+VALUES ('F', 'BRO', 'BRO', 'O+','120', '55'),
+       ('M', 'BLU', 'BRO', 'AB-','165', '65'),
+       ('X', 'BRO', 'BRO', 'A+','135', '60');
 
 
 INSERT INTO PICTURE (pictureAddress)
@@ -124,7 +122,7 @@ VALUES (123,'JMDO'),
         (453, 'JDOE'),
         (39402, 'JOSM'); 
 
-INSERT INTO INCIDENT_HISTORY (incidentType, incidentDate, fineAccount)
+INSERT INTO INCIDENT_HISTORY (incidentType, incidentDate, fineAmount)
 VALUES ('D', 03/23/1989, 500), ('A', 09/09/2009, 75), ('A', 09/12/2022);
 
 INSERT INTO EMERGENCY_CONTACT_INFO (firstName, lastName, phoneNumber) 
@@ -137,7 +135,9 @@ INSERT INTO LICENSE_ASSOCIATED_INFORMATION (issueDate, expirationDate, vehicleTy
 VALUES (03/15/1969, 03/15/2023, 'D'), (03/19/1972, 03/15/2024, 'D'), (NULL, NULL, 'D');
 
 INSERT INTO VEHICLE_INFORMATION (vehicleType, description, licensePlate)
-VALUES ('D', "1995 BMW SERIES 3", "1BOOMER"), ('D', "2022 FORD BRONCO", "0GOPATS0"), ('D', "2009 CADILLAC ESCALADE", '2934JVC');
+VALUES ('D', '1995 BMW SERIES 3', '1BOOMER'),
+       ('D', '2022 FORD BRONCO', '0GOPATS0'),
+       ('D', '2009 CADILLAC ESCALADE', '2934JVC');
 
 
 
