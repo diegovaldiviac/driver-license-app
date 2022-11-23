@@ -17,14 +17,17 @@ CREATE TABLE PERSON (
     email TEXT UNIQUE NOT NULL,
     state CHAR(4),
     zipCode INTEGER,
-    restriction CHAR(4)
-    -- FOREIGN KEY driversID INTEGER
+    restriction CHAR(4),
+    driversID CHAR(6),
+    PRIMARY KEY (driversID)
 );
 
 CREATE TABLE MISC (
     organDonor BOOLEAN,
-    veteran BOOLEAN
-    -- FOREIGN KEY driversID INTEGER
+    veteran BOOLEAN,
+    driversID CHAR(6),
+    CONSTRAINT FK1
+        FOREIGN KEY(driversID) REFERENCES PERSON(driversID)
 );
 
 
@@ -35,18 +38,26 @@ CREATE TABLE BIO_INFORMATION (
     hairColor Char(4),
     bloodType CHAR(4),
     weight FLOAT,
-    height FLOAT
+    height FLOAT,
+    driversID CHAR(6),
+    CONSTRAINT FK2
+        FOREIGN KEY(driversID) REFERENCES PERSON(driversID)
 );
 
 CREATE TABLE PICTURE (
     -- TODO: How to represent a picture correctly
-    pictureAddress CHAR(4)
-    -- FOREIGN KEY driversID INTEGER
+    pictureAddress CHAR(4),
+    driversID CHAR(6),
+    CONSTRAINT FK3
+        FOREIGN KEY(driversID) REFERENCES PERSON(driversID)
 );
 
 CREATE TABLE USER_CREDENTIALS (
     password INTEGER NOT NULL,
-    nickname CHAR(4)
+    nickname CHAR(4),
+    driversID CHAR(6),
+    CONSTRAINT FK4
+        FOREIGN KEY(driversID) REFERENCES PERSON(driversID)
     -- FOREIGN KEY driversID INTEGER
 );
 
@@ -55,37 +66,46 @@ CREATE TABLE INCIDENT_HISTORY (
     -- One of A, B, C, D, E, F
     incidentType CHAR(1) NOT NULL,
     incidentDate DATE NOT NULL,
-    fineAmount FLOAT NOT NULL
-    -- FOREIGN KEY driversID INTEGER
+    fineAmount FLOAT NOT NULL,
+    CONSTRAINT FK5
+        FOREIGN KEY(driversID) REFERENCES PERSON(driversID)
+
 );
 
 
 CREATE TABLE EMERGENCY_CONTACT_INFO (
     firstName TEXT,
     lastName TEXT,
-    phoneNumber INTEGER
-    -- FOREIGN KEY driversID INTEGER
+    phoneNumber INTEGER,
+    CONSTRAINT FK6
+        FOREIGN KEY(driversID) REFERENCES PERSON(driversID)
 );
 
 
 CREATE TABLE PRE_VALIDATION_DATA (
     roadTestResult TEXT,
     statusOfLearnersPermit TEXT,
-    dmvOffice TEXT
+    dmvOffice TEXT,
+    CONSTRAINT FK7
+        FOREIGN KEY(driversID) REFERENCES PERSON(driversID)
     -- FOREIGN KEY driversID INTEGER
 );
 
 CREATE TABLE LICENSE_ASSOCIATED_INFORMATION (
     issueDate DATE,
     expirationDate DATE,
-    VehicleType CHAR(1)
+    VehicleType CHAR(1),
+    CONSTRAINT FK8
+        FOREIGN KEY(driversID) REFERENCES PERSON(driversID)
     -- FOREIGN KEY driversID INTEGER
 
 );
 CREATE TABLE VEHICLE_INFORMATION (
     vehicleType TEXT,
     description TEXT,
-    licensePlate TEXT
+    licensePlate TEXT,
+    CONSTRAINT FK9
+        FOREIGN KEY(driversID) REFERENCES PERSON(driversID)
     -- FOREIGN KEY driversID INTEGER
 );
 
@@ -138,7 +158,6 @@ VALUES (03/15/1969, 03/15/2023, 'D'), (03/19/1972, 03/15/2024, 'D'), (NULL, NULL
 
 INSERT INTO VEHICLE_INFORMATION (vehicleType, description, licensePlate)
 VALUES ('D', "1995 BMW SERIES 3", "1BOOMER"), ('D', "2022 FORD BRONCO", "0GOPATS0"), ('D', "2009 CADILLAC ESCALADE", '2934JVC');
-
 
 
 
