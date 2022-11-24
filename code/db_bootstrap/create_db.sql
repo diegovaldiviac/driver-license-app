@@ -20,14 +20,14 @@ dlars_db;
 
 CREATE TABLE PERSON
 (
-    firstName   TEXT           NOT NULL,
+    firstName   TEXT        NOT NULL,
     middleName  TEXT,
-    lastName    TEXT           NOT NULL,
-    email       TEXT UNIQUE    NOT NULL,
+    lastName    TEXT        NOT NULL,
+    email       TEXT UNIQUE NOT NULL,
     state       CHAR(4),
     zipCode     INTEGER,
     restriction CHAR(4),
-    driversID   CHAR(6) UNIQUE NOT NULL,
+    driversID   INT AUTO_INCREMENT NOT NULL,
     PRIMARY KEY (driversID)
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE MISC
 (
     organDonor BOOLEAN,
     veteran    BOOLEAN,
-    driversID  CHAR(6),
+    driversID  INT NOT NULL,
     CONSTRAINT FK1
         FOREIGN KEY (driversID) REFERENCES PERSON (driversID)
 );
@@ -50,7 +50,7 @@ CREATE TABLE BIO_INFORMATION
     bloodType CHAR(4),
     weight    FLOAT,
     height    FLOAT,
-    driversID CHAR(6),
+    driversID INT NOT NULL,
     CONSTRAINT FK2
         FOREIGN KEY (driversID) REFERENCES PERSON (driversID)
 );
@@ -59,7 +59,7 @@ CREATE TABLE PICTURE
 (
     -- TODO: How to represent a picture correctly
     pictureAddress CHAR(4),
-    driversID      CHAR(6),
+    driversID      INT NOT NULL,
     CONSTRAINT FK3
         FOREIGN KEY (driversID) REFERENCES PERSON (driversID)
 );
@@ -68,7 +68,7 @@ CREATE TABLE USER_CREDENTIALS
 (
     password  INTEGER NOT NULL,
     nickname  CHAR(4),
-    driversID CHAR(6),
+    driversID INT     NOT NULL,
     CONSTRAINT FK4
         FOREIGN KEY (driversID) REFERENCES PERSON (driversID)
     -- FOREIGN KEY driversID INTEGER
@@ -81,6 +81,7 @@ CREATE TABLE INCIDENT_HISTORY
     incidentType CHAR(1) NOT NULL,
     incidentDate DATE    NOT NULL,
     fineAmount   FLOAT   NOT NULL,
+    driversID    INT     NOT NULL,
     CONSTRAINT FK5
         FOREIGN KEY (driversID) REFERENCES PERSON (driversID)
 
@@ -92,6 +93,7 @@ CREATE TABLE EMERGENCY_CONTACT_INFO
     firstName   TEXT,
     lastName    TEXT,
     phoneNumber INTEGER,
+    driversID   INT NOT NULL,
     CONSTRAINT FK6
         FOREIGN KEY (driversID) REFERENCES PERSON (driversID)
 );
@@ -102,6 +104,7 @@ CREATE TABLE PRE_VALIDATION_DATA
     roadTestResult         TEXT,
     statusOfLearnersPermit TEXT,
     dmvOffice              TEXT,
+    driversID              INT NOT NULL,
     CONSTRAINT FK7
         FOREIGN KEY (driversID) REFERENCES PERSON (driversID)
     -- FOREIGN KEY driversID INTEGER
@@ -112,6 +115,7 @@ CREATE TABLE LICENSE_ASSOCIATED_INFORMATION
     issueDate      DATE,
     expirationDate DATE,
     VehicleType    CHAR(1),
+    driversID      INT NOT NULL,
     CONSTRAINT FK8
         FOREIGN KEY (driversID) REFERENCES PERSON (driversID)
     -- FOREIGN KEY driversID INTEGER
@@ -122,6 +126,7 @@ CREATE TABLE VEHICLE_INFORMATION
     vehicleType  TEXT,
     description  TEXT,
     licensePlate TEXT,
+    driversID    INT NOT NULL,
     CONSTRAINT FK9
         FOREIGN KEY (driversID) REFERENCES PERSON (driversID)
     -- FOREIGN KEY driversID INTEGER
@@ -129,36 +134,40 @@ CREATE TABLE VEHICLE_INFORMATION
 
 CREATE TABLE CLERK_INFORMATION
 (
-    firstName  TEXT           NOT NULL,
-    LastName   TEXT           NOT NULL,
-    EmployeeID CHAR(7) UNIQUE NOT NULL,
+    firstName  TEXT NOT NULL,
+    LastName   TEXT NOT NULL,
+    EmployeeID INT AUTO_INCREMENT NOT NULL,
     PRIMARY KEY (EmployeeID)
 );
 CREATE TABLE ApplicationStatus
 (
     LicenseStatus        CHAR(20),
     PendingFirstApproval CHAR(20),
-    EmployeeID           CHAR(7) UNIQUE NOT NULL,
+    EmployeeID           INT NOT NULL,
     CONSTRAINT FK10
         FOREIGN KEY (EmployeeID) REFERENCES CLERK_INFORMATION (EmployeeID)
 );
 CREATE TABLE AccessCredentials
 (
-    NickName   TEXT           NOT NULL,
-    Password   TEXT           NOT NULL,
-    EmployeeID CHAR(7) UNIQUE NOT NULL,
+    NickName   TEXT NOT NULL,
+    Password   TEXT NOT NULL,
+    EmployeeID INT  NOT NULL,
     CONSTRAINT FK11
         FOREIGN KEY (EmployeeID) REFERENCES CLERK_INFORMATION (EmployeeID)
 );
 
 -- Since as of now, there are no foreign keys that relate all the db, assume that the 
-INSERT INTO ApplicationStatus(LicenseStatus, PendingFirstApproval, EmployeeID)
-VALUES ("Approved", "Pass", "4"),
-       ("Approved", "Fail", "6"),
-       ("Rejected", "Pass", "5");
+INSERT INTO ApplicationStatus(LicenseStatus, PendingFirstApproval)
+VALUES ("Approved", "Pass"),
+       ("Approved", "Fail"),
+       ("Rejected", "Pass");
+-- We are not sure if the auto increment for the primary key is going to affect
+-- the value for the foreign key, therefore it will increase automatically.
+-- As of now we will leave it like this, for one erd we will put the, and for the other
+-- we are just going to assume that the auto increase will work automatically.
 INSERT INTO AccessCredentials(NickName, Password, EmployeeID)
-VALUES ("Ikandrio", "1239", "5") ("Cabra47","holA9","6")
-    ("Carlosquinto","Rey57","4")
+VALUES ("Ikandrio", "1239", "5"),
+       ("Cabra47", "holA9", "6") ("Carlosquinto","Rey57","4")
 
 INSER
 INTO CLERK_INFORMATION(firstName, LastName, EmployeeID)
@@ -168,11 +177,10 @@ VALUES ("Roberto", "Rodriguez", "4"),
 
 
 
-INSERT INTO PERSON (firstName, middleName, lastName, email, state, zipCode, restriction,
-                    driversID) -- These would need a DriversID
-VALUES ("Jane", "Marie", "Doe", "j.doe@gmail.com", 'MA', 02111, 'B', "1"),
-       ("Joseph", NULL, "Doe", "jo.doe@gmail.com", 'MA', 02111, NULL, "2"),
-       ("John", NULL, "Smith", "johnsmith@company.com", 'MA', 02120, 'B', "3");
+INSERT INTO PERSON (firstName, middleName, lastName, email, state, zipCode, restriction) -- These would need a DriversID
+VALUES ("Jane", "Marie", "Doe", "j.doe@gmail.com", 'MA', 02111, 'B'),
+       ("Joseph", NULL, "Doe", "jo.doe@gmail.com", 'MA', 02111, NULL),
+       ("John", NULL, "Smith", "johnsmith@company.com", 'MA', 02120, 'B');
 
 
 
@@ -223,9 +231,5 @@ INSERT INTO VEHICLE_INFORMATION (vehicleType, description, licensePlate)
 VALUES ('D', "1995 BMW SERIES 3", "1BOOMER"),
        ('D', "2022 FORD BRONCO", "0GOPATS0"),
        ('D', "2009 CADILLAC ESCALADE", '2934JVC');
-
-
-
-
 
 
