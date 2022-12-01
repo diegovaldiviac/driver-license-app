@@ -4,8 +4,7 @@ CREATE
 USER 'webapp'@'%' IDENTIFIED BY 'iker123';
 GRANT ALL PRIVILEGES ON dlars_db.* TO
 'webapp'@'%';
-FLUSH
-PRIVILEGES;
+FLUSH PRIVILEGES;
 
 CREATE
 USER 'sysadmin'@'%' IDENTIFIED BY 'sysadmin789';
@@ -23,7 +22,7 @@ CREATE TABLE PERSON
     firstName   TEXT        NOT NULL,
     middleName  TEXT,
     lastName    TEXT        NOT NULL,
-    email       TEXT UNIQUE NOT NULL,
+    email       TEXT NOT NULL,
     state       CHAR(4),
     zipCode     INTEGER,
     restriction CHAR(4),
@@ -157,10 +156,10 @@ CREATE TABLE AccessCredentials
 );
 
 -- Since as of now, there are no foreign keys that relate all the db, assume that the 
-INSERT INTO ApplicationStatus(LicenseStatus, PendingFirstApproval)
-VALUES ('Approved', 'Pass'),
-       ('Approved', 'Fail'),
-       ('Rejected', 'Pass');
+INSERT INTO ApplicationStatus(LicenseStatus, PendingFirstApproval, EmployeeID)
+VALUES ('Approved', 'Pass', 1000),
+       ('Approved', 'Fail', 1100),
+       ('Rejected', 'Pass', 1110);
 -- We are not sure if the auto increment for the primary key is going to affect
 -- the value for the foreign key, therefore it will increase automatically.
 -- As of now we will leave it like this, for one erd we will put the, and for the other
