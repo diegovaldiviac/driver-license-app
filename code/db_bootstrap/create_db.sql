@@ -158,29 +158,29 @@ CREATE TABLE AccessCredentials
 
 -- Since as of now, there are no foreign keys that relate all the db, assume that the 
 INSERT INTO ApplicationStatus(LicenseStatus, PendingFirstApproval)
-VALUES ("Approved", "Pass"),
-       ("Approved", "Fail"),
-       ("Rejected", "Pass");
+VALUES ('Approved', 'Pass'),
+       ('Approved', 'Fail'),
+       ('Rejected', 'Pass');
 -- We are not sure if the auto increment for the primary key is going to affect
 -- the value for the foreign key, therefore it will increase automatically.
 -- As of now we will leave it like this, for one erd we will put the, and for the other
 -- we are just going to assume that the auto increase will work automatically.
 INSERT INTO AccessCredentials(NickName, Password, EmployeeID)
-VALUES ("Ikandrio", "1239", "5"),
-       ("Cabra47", "holA9", "6") ("Carlosquinto","Rey57","4")
+VALUES ('Ikandrio', '1239', '5'),
+       ('Cabra47', 'holA9', '6'),
+       ('Carlosquinto','Rey57','4');
 
-INSER
-INTO CLERK_INFORMATION(firstName, LastName, EmployeeID)
-VALUES ("Roberto", "Rodriguez", "4"),
-    ("Mariana", "Guerra", "5"),
-    ("Alejandro", "Rodriguez", "6");
+INSERT INTO CLERK_INFORMATION(firstName, LastName, EmployeeID)
+VALUES ('Roberto', 'Rodriguez', '4'),
+    ('Mariana', 'Guerra', '5'),
+    ('Alejandro', 'Rodriguez', '6');
 
 
 
 INSERT INTO PERSON (firstName, middleName, lastName, email, state, zipCode, restriction) -- These would need a DriversID
-VALUES ("Jane", "Marie", "Doe", "j.doe@gmail.com", 'MA', 02111, 'B'),
-       ("Joseph", NULL, "Doe", "jo.doe@gmail.com", 'MA', 02111, NULL),
-       ("John", NULL, "Smith", "johnsmith@company.com", 'MA', 02120, 'B');
+VALUES ('Jane', 'Marie', 'Doe', 'j.doe@gmail.com', 'MA', 02111, 'B'),
+       ('Joseph', NULL, 'Doe', 'jo.doe@gmail.com', 'MA', 02111, NULL),
+       ('John', NULL, 'Smith', 'johnsmith@company.com', 'MA', 02120, 'B');
 
 
 
@@ -192,9 +192,9 @@ VALUES (TRUE, FALSE),
 -- Used Imperial system (lbs and inches respectively)
 -- One of M, F, X (None Binary)
 INSERT INTO BIO_INFORMATION (Gender, eyeColor, hairColor, bloodType, weight, height)
-VALUES ('F', 'BRO', "BRO", "O+", "120", "55"),
-       ('M', 'BLU', "BRO", "AB-", "165", "65"),
-       ('X', 'BRO', "BRO", "A+", "135", "60");
+VALUES ('F', 'BRO', 'BRO', 'O+', '120', '55'),
+       ('M', 'BLU', 'BRO', 'AB-', '165', '65'),
+       ('X', 'BRO', 'BRO', 'A+', '135', '60');
 
 
 INSERT INTO PICTURE (pictureAddress)
@@ -207,7 +207,7 @@ VALUES (123, 'JMDO'),
        (453, 'JDOE'),
        (39402, 'JOSM');
 
-INSERT INTO INCIDENT_HISTORY (incidentType, incidentDate, fineAccount)
+INSERT INTO INCIDENT_HISTORY (incidentType, incidentDate, fineAmount)
 VALUES ('D', 03 / 23 / 1989, 500),
        ('A', 09 / 09 / 2009, 75),
        ('A', 09 / 12 / 2022);
@@ -228,8 +228,8 @@ VALUES (03 / 15 / 1969, 03 / 15 / 2023, 'D'),
        (NULL, NULL, 'D');
 
 INSERT INTO VEHICLE_INFORMATION (vehicleType, description, licensePlate)
-VALUES ('D', "1995 BMW SERIES 3", "1BOOMER"),
-       ('D', "2022 FORD BRONCO", "0GOPATS0"),
-       ('D', "2009 CADILLAC ESCALADE", '2934JVC');
+VALUES ('D', '1995 BMW SERIES 3', '1BOOMER'),
+       ('D', '2022 FORD BRONCO', '0GOPATS0'),
+       ('D', '2009 CADILLAC ESCALADE', '2934JVC');
 
 

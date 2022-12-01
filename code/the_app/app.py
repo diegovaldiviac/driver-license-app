@@ -36,18 +36,17 @@ def root_url():
     return "Welcome to the root url!"
 
 
-"""
 @app.route('/db_test')
 def db_testing():
    cur = db_connection.get_db().cursor()
-   cur.execute('select * from test_table')
+   cur.execute('select * from PERSON')
    row_headers = [x[0] for x in cur.description]
    json_data = []
    theData = cur.fetchall()
    for row in theData:
        json_data.append(dict(zip(row_headers, row)))
    return jsonify(json_data)
-"""
+
 
 # If this file is being run directly, then run the application 
 # via the app object. 
