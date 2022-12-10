@@ -1,20 +1,18 @@
-from flask import Blueprint
+from flask import Blueprint, request, make_response, jsonify
+import json
+from src import db
 
-clerks_blueprint = Blueprint('/clerks_blueprint', __name__)
+clerks = Blueprint('clerks', __name__)
 
 
 # the @app.route("/") connects the hello_word function to the URL / 
-@clerks_blueprint.route('/')
+@clerks.route('/clerks', methods=['GET'])
 def root_url():
     return "<h1>Welcome to the root of the clerks url!</h1>"
 
 
-@clerks_blueprint.route('/clerks')
-def get_all_clerks():
-    return f'<h1> I am a sub page in the clerk url. </h1>'
-
 
 # This route will handle the user going to /users/<some_id>
-@clerks_blueprint.route("/clerks/<idNumber>")
+@clerks.route("/clerks/<idNumber>")
 def handle_user_with_id(idNumber):
     return f'<h2>Testing the speicific clerk: {idNumber} id.'
