@@ -35,11 +35,13 @@ GET call to populate view with existing user infromation
 POST call to update/add user information
 """
 
-@persona.route('/renew', methods=['GET', 'POST'])
-def get_persona(driverID):
+@persona.route('/renew/driversID', methods=['GET', 'POST'])
+def get_persona(driversID):
    cursor = db.get_db().cursor()
-   cursor.execute('select * from Persona where driverLisence = {0}'.format(driverID))
-   
+   cursor.execute('select * from Persona where driversID = {0}'.format(driversID))
+   cursor.execute('select * from ApplicationStatus where driversID = {0}'.format(driversID))
+   cursor.execute('select * from LicenseAssociatedInformation where driversID = {0}'.format(driversID))
+
    row_headers = [x[0] for x in cursor.description]
    json_data = []
    theData = cursor.fetchall()
