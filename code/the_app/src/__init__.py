@@ -5,7 +5,6 @@ from flaskext.mysql import MySQL
 # create a MySQL object that we will use in other parts of the API
 db = MySQL()
 
-
 def create_app():
     # create a flask object
     app = Flask(__name__)
