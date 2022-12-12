@@ -21,9 +21,11 @@ def create_app():
 
     from src.clerks_api.clerks import clerks
     from src.persona_api.persona import persona
+    from src.login import login
 
     # Register blueprints with flask app object.
     app.register_blueprint(clerks, url_prefix='/clerks')
     app.register_blueprint(persona, url_prefix='/persona')
+    app.register_blueprint(login, url_prefix='/login')
 
     return app
