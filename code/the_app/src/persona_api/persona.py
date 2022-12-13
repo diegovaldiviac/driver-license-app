@@ -34,25 +34,35 @@ def apply_new_lisence():
 GET call to populate view with existing user infromation
 POST call to update/add user information
 """
+# This route will handle the user going to /users/<some_id>
+@persona.route("/renew/<driversID>", methods=['GET'])
+def test(driversID):
 
-@persona.route('/renew/driversID', methods=['GET', 'POST'])
-def get_persona(driversID):
-   cursor = db.get_db().cursor()
-   cursor.execute('select * from Persona where driversID = {0}'.format(driversID))
-   cursor.execute('select * from ApplicationStatus where driversID = {0}'.format(driversID))
-   cursor.execute('select * from LicenseAssociatedInformation where driversID = {0}'.format(driversID))
-
-   row_headers = [x[0] for x in cursor.description]
+   cur = db.get_db().cursor()
+   cur.execute('select email from Person where driversID = {0}'.format(driversID))
+   row_headers = [x[0] for x in cur.description]
    json_data = []
-   theData = cursor.fetchall()
+   theData = cur.fetchall()
    for row in theData:
-      json_data.append(dict(zip(row_headers, row)))
-   the_response = make_response(jsonify(json_data))
-   the_response.status_code = 200
-   the_response.mimetype = 'application/json'
-
-   return the_response
-
+       json_data.append(dict(zip(row_headers, row)))
+   return jsonify(json_data)
+   
+   #
+   #cursor.execute('select * from ApplicationStatus where driversID = {0}'.format(driversID))
+   #cursor.execute('select * from LicenseAssociatedInformation where driversID = {0}'.format(driversID))
+   #row_headers = [x[0] for x in cursor.description]
+   #json_data = []
+   #theData = cursor.fetchall()
+   #print(theData)
+   #for row in theData:
+   #   print(row_headers)
+   #   print(row)
+   #   json_data.append(dict(zip(row_headers, row)))
+   #the_response = make_response(jsonify(json_data))
+   #the_response.status_code = 200
+   #the_response.mimetype = 'application/json'
+   #return the_response
+   #return f'<h2>Testing the specific persona: {driversID} id.'
 
 @persona.route('/renew', methods=['GET', 'POST'])
 def renew_lisence():

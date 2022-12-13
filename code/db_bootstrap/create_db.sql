@@ -1,11 +1,11 @@
-CREATE DATABASE dlars_db;
-CREATE USER 'webapp'@'%' IDENTIFIED BY 'iker123';
-GRANT ALL PRIVILEGES ON dlars_db.* TO'webapp'@'%';
-FLUSH PRIVILEGES;
+#CREATE DATABASE dlars_db;
+#CREATE USER 'webapp'@'%' IDENTIFIED BY 'iker123';
+#GRANT ALL PRIVILEGES ON dlars_db.* TO'webapp'@'%';
+#FLUSH PRIVILEGES;
 
-CREATE USER 'sysadmin'@'%' IDENTIFIED BY 'sysadmin789';
-CREATE USER 'clerk'@'%' IDENTIFIED BY 'clerk789';
-CREATE USER 'user'@'%' IDENTIFIED BY 'user789';
+#CREATE USER 'sysadmin'@'%' IDENTIFIED BY 'sysadmin789';
+#CREATE USER 'clerk'@'%' IDENTIFIED BY 'clerk789';
+#CREATE USER 'user'@'%' IDENTIFIED BY 'user789';
 
 
 USE dlars_db;
@@ -94,12 +94,12 @@ CREATE TABLE `EmergencyContactInfo`
         FOREIGN KEY (driversID) REFERENCES `Person` (driversID)
 );
 
-DROP TABLE IF EXISTS `PreValidactionData`;
-CREATE TABLE 'PreValidactionData'
+DROP TABLE IF EXISTS `PreValidationData`;
+CREATE TABLE `PreValidationData`
 (
-    roadTestResult         TEXT,
-    statusOfLearnersPermit TEXT,
-    dmvOffice              TEXT,
+    roadTestResult         VARCHAR(2) NOT NULL,
+    statusOfLearnersPermit VARCHAR(2) NOT NULL,
+    dmvOffice              VARCHAR(2) NOT NULL,
     driversID              INT NOT NULL,
     CONSTRAINT FK7
         FOREIGN KEY (driversID) REFERENCES `Person` (driversID)
@@ -122,13 +122,12 @@ CREATE TABLE  `LicenseAssociatedInformation`
 DROP TABLE IF EXISTS `EmergencyConVehicleInformationtactInfo`;
 CREATE TABLE `VehicleInformation`
 (
-    vehicleType  TEXT,
-    description  TEXT,
-    licensePlate TEXT,
+    vehicleType  TEXT NOT NULL,
+    description  TEXT NOT NULL,
+    licensePlate TEXT NOT NULL,
     driversID    INT NOT NULL,
     CONSTRAINT FK9
         FOREIGN KEY (driversID) REFERENCES `Person` (driversID)
-    -- FOREIGN KEY driversID INTEGER
 );
 
 DROP TABLE IF EXISTS `ClerkInformation`;
@@ -160,10 +159,11 @@ CREATE TABLE `AccessCredentials`
         FOREIGN KEY (EmployeeID) REFERENCES `ClerkInformation` (EmployeeID)
 );
 
-INSERT INTO `Person` (firstName, middleName, lastName, email, state, zipCode, restriction) -- These would need a DriversID
-VALUES ('Jane', 'Marie', 'Doe', 'j.doe@gmail.com', 'MA', 02111, 'B'),
-       ('Joseph', NULL, 'Doe', 'jo.doe@gmail.com', 'MA', 02111, NULL),
-       ('John', NULL, 'Smith', 'johnsmith@company.com', 'MA', 02120, 'B');
+INSERT INTO `Person` (firstName, middleName, lastName, email, state, zipCode, restriction, driversID) -- These would need a DriversID
+VALUES ('Jane', 'Marie', 'Doe', 'j.doe@gmail.com', 'MA', 02111, 'B', 1001),
+       ('Joseph', NULL, 'Doe', 'jo.doe@gmail.com', 'MA', 02111, NULL, 1002),
+       ('John', NULL, 'Smith', 'johnsmith@company.com', 'MA', 02120, 'B', 1003),
+       ('Carlos', NULL, 'Gimeno', 'chupala@company.com', 'MA', 02120, 'B', 1000);
 
 
 INSERT INTO `ClerkInformation`(firstName, LastName, EmployeeID)
@@ -188,9 +188,9 @@ VALUES ('Ikandrio', '1239', 1000),
 
 
 INSERT INTO `Misc` (organDonor, veteran)
-VALUES (TRUE, FALSE),
-       (FALSE, FALSE),
-       (FALSE, TRUE);
+VALUES (TRUE, FALSE, 1000),
+       (FALSE, FALSE, 1001),
+       (FALSE, TRUE, 1002);
 
 -- Used Imperial system (lbs and inches respectively)
 -- One of M, F, X (None Binary)
@@ -220,7 +220,7 @@ VALUES ('Joseph', 'Doe', 6172558989),
        ('Jane', 'Doe', 6172539000),
        ('Maria', 'Falcao', 3052359898);
 
-INSERT INTO 'PreValidactionData' (roadTestResult, statusOfLearnersPermit, dmvOffice)
+INSERT INTO 'PreValidationData' (roadTestResult, statusOfLearnersPermit, dmvOffice)
 VALUES ('PASS', 'CURRENT', 'Watertown'),
        ('PASS', 'CURRENT', 'Springfield'),
        ('FAILED', 'INVALID', 'Haymarket');

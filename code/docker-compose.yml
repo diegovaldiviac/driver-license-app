@@ -14,7 +14,7 @@ services:
     volumes:
       - ./the_app:/usr/src/app
 
-    # map host port 9c000 to container port 4000
+    # map host port 9000 to container port 4000
     ports: 
       - 9000:4000
     
