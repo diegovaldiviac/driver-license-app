@@ -1,11 +1,13 @@
-#CREATE DATABASE dlars_db;
-#CREATE USER 'webapp'@'%' IDENTIFIED BY 'iker123';
-#GRANT ALL PRIVILEGES ON dlars_db.* TO'webapp'@'%';
-#FLUSH PRIVILEGES;
+#DROP DATABASE dlars_db;
 
-#CREATE USER 'sysadmin'@'%' IDENTIFIED BY 'sysadmin789';
-#CREATE USER 'clerk'@'%' IDENTIFIED BY 'clerk789';
-#CREATE USER 'user'@'%' IDENTIFIED BY 'user789';
+CREATE DATABASE dlars_db;
+CREATE USER 'webapp'@'%' IDENTIFIED BY 'iker123';
+GRANT ALL PRIVILEGES ON dlars_db.* TO'webapp'@'%';
+FLUSH PRIVILEGES;
+
+CREATE USER 'sysadmin'@'%' IDENTIFIED BY 'sysadmin789';
+CREATE USER 'clerk'@'%' IDENTIFIED BY 'clerk789';
+CREATE USER 'user'@'%' IDENTIFIED BY 'user789';
 
 
 USE dlars_db;
@@ -20,7 +22,7 @@ CREATE TABLE `Person`
     state       CHAR(4),
     zipCode     INTEGER,
     restriction CHAR(4),
-    driversID   INT AUTO_INCREMENT NOT NULL,
+    driversID   INT NOT NULL,
     PRIMARY KEY (driversID)
 );
 
@@ -88,7 +90,7 @@ CREATE TABLE `EmergencyContactInfo`
 (
     firstName   TEXT,
     lastName    TEXT,
-    phoneNumber INTEGER,
+    phoneNumber VARCHAR(50) NOT NULL,
     driversID   INT NOT NULL,
     CONSTRAINT FK6
         FOREIGN KEY (driversID) REFERENCES `Person` (driversID)
@@ -97,13 +99,12 @@ CREATE TABLE `EmergencyContactInfo`
 DROP TABLE IF EXISTS `PreValidationData`;
 CREATE TABLE `PreValidationData`
 (
-    roadTestResult         VARCHAR(2) NOT NULL,
-    statusOfLearnersPermit VARCHAR(2) NOT NULL,
-    dmvOffice              VARCHAR(2) NOT NULL,
+    roadTestResult         VARCHAR(10) NOT NULL,
+    statusOfLearnersPermit VARCHAR(10) NOT NULL,
+    dmvOffice              VARCHAR(20) NOT NULL,
     driversID              INT NOT NULL,
     CONSTRAINT FK7
         FOREIGN KEY (driversID) REFERENCES `Person` (driversID)
-    -- FOREIGN KEY driversID INTEGER
 );
 
 DROP TABLE IF EXISTS `LicenseAssociatedInformation`;
@@ -115,7 +116,6 @@ CREATE TABLE  `LicenseAssociatedInformation`
     driversID      INT NOT NULL,
     CONSTRAINT FK8
         FOREIGN KEY (driversID) REFERENCES `Person` (driversID)
-    -- FOREIGN KEY driversID INTEGER
 
 );
 
@@ -187,52 +187,51 @@ VALUES ('Ikandrio', '1239', 1000),
        ('Carlosquinto','Rey57', 1110);
 
 
-INSERT INTO `Misc` (organDonor, veteran)
+INSERT INTO `Misc` (organDonor, veteran, driversID)
 VALUES (TRUE, FALSE, 1000),
        (FALSE, FALSE, 1001),
        (FALSE, TRUE, 1002);
 
 -- Used Imperial system (lbs and inches respectively)
 -- One of M, F, X (None Binary)
-INSERT INTO `BioInformation` (Gender, eyeColor, hairColor, bloodType, weight, height)
-VALUES ('F', 'BRO', 'BRO', 'O+', '120', '55'),
-       ('M', 'BLU', 'BRO', 'AB-', '165', '65'),
-       ('X', 'BRO', 'BRO', 'A+', '135', '60');
+INSERT INTO `BioInformation` (Gender, eyeColor, hairColor, bloodType, weight, height, driversID)
+VALUES ('F', 'BRO', 'BRO', 'O+', '120', '55', 1000),
+       ('M', 'BLU', 'BRO', 'AB-', '165', '65', 1001),
+       ('X', 'BRO', 'BRO', 'A+', '135', '60', 1002);
 
 
-INSERT INTO `Picture` (pictureAddress)
-VALUES ('3401'),
-       ('3402'),
-       ('9523');
+INSERT INTO `Picture` (pictureAddress, driversID)
+VALUES ('3401', 1000),
+       ('3402', 1001),
+       ('9523', 1002);
 
-INSERT INTO `UserCredential` (password, nickname)
-VALUES (123, 'JMDO'),
-       (453, 'JDOE'),
-       (39402, 'JOSM');
+INSERT INTO `UserCredential` (password, nickname, driversID)
+VALUES (123, 'JMDO', 1000),
+       (453, 'JDOE', 1001),
+       (39402, 'JOSM', 1002);
 
-INSERT INTO  `IncedentHistory` (incidentType, incidentDate, fineAmount)
-VALUES ('D', 03 / 23 / 1989, 500),
-       ('A', 09 / 09 / 2009, 75),
-       ('A', 09 / 12 / 2022);
+INSERT INTO  `IncedentHistory` (incidentType, incidentDate, fineAmount, driversID)
+VALUES ('D', '1989-03-23', 500, 1000),
+       ('A', '2009-09-09', 75, 1001),
+       ('A', '2022-09-12', 1002, 1002);
 
-INSERT INTO `EmergencyContactInfo` (firstName, lastName, phoneNumber)
-VALUES ('Joseph', 'Doe', 6172558989),
-       ('Jane', 'Doe', 6172539000),
-       ('Maria', 'Falcao', 3052359898);
+INSERT INTO `EmergencyContactInfo` (firstName, lastName, phoneNumber, driversID)
+VALUES ('Joseph', 'Doe', '6172558989', 1000),
+       ('Jane', 'Doe', '6172539000', 1001),
+       ('Maria', 'Falcao', '3052359898', 1002);
 
-INSERT INTO 'PreValidationData' (roadTestResult, statusOfLearnersPermit, dmvOffice)
-VALUES ('PASS', 'CURRENT', 'Watertown'),
-       ('PASS', 'CURRENT', 'Springfield'),
-       ('FAILED', 'INVALID', 'Haymarket');
+INSERT INTO `PreValidationData` (roadTestResult, statusOfLearnersPermit, dmvOffice, driversID)
+VALUES ('PASS', 'CURRENT', 'Watertown', 1000),
+       ('PASS', 'CURRENT', 'Springfield', 1001),
+       ('FAILED', 'INVALID', 'Haymarket', 1002);
 
-INSERT INTO   `LicenseAssociatedInformation` (issueDate, expirationDate, vehicleType)
-VALUES (03 / 15 / 1969, 03 / 15 / 2023, 'D'),
-       (03 / 19 / 1972, 03 / 15 / 2024, 'D'),
-       (NULL, NULL, 'D');
+INSERT INTO   `LicenseAssociatedInformation` (issueDate, expirationDate, vehicleType, driversID)
+VALUES ('1969-03-15', '2023-03-15', 'D', 1000),
+       ('1972-03-19', '2024-03-15', 'D', 1001);
 
-INSERT INTO `VehicleInformation` (vehicleType, description, licensePlate)
-VALUES ('D', '1995 BMW SERIES 3', '1BOOMER'),
-       ('D', '2022 FORD BRONCO', '0GOPATS0'),
-       ('D', '2009 CADILLAC ESCALADE', '2934JVC');
+INSERT INTO `VehicleInformation` (vehicleType, description, licensePlate, driversID)
+VALUES ('D', '1995 BMW SERIES 3', '1BOOMER', 1000),
+       ('D', '2022 FORD BRONCO', '0GOPATS0', 1001),
+       ('D', '2009 CADILLAC ESCALADE', '2934JVC', 1002);
 
 
