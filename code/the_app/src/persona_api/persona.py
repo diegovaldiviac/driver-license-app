@@ -30,6 +30,7 @@ def apply_new_lisence():
       return "<h1>Submitted!</h1>"
    except Exception as e:
       return "<h1>Error</h1>"
+      
 
 @persona.route('/apply/email/<driversID>', methods=['POST'])
 def update_email(driversID):
@@ -41,6 +42,23 @@ def update_email(driversID):
       query = 'update `Person` set email = {email} where driversID = {0}'.format(driversID)
       cur.execute(query)
 
+
+@persona.route('/apply/misc/<driversID>', methods=['POST'])
+def update_misc(driversID):   
+
+   try:
+      # request.form to get form parameter
+      if request.method == 'POST':
+         organDonor = request.form.get('organ')
+         veteran = request.form.get('veteran')
+
+         cur = db.get_db().cursor()
+         query = 'update `Misc` set organDonor = {organDonor}, veteran = {veteran} where driversID = {0}'.format(driversID)
+         cur.execute(query)
+
+      return "<h1>Submitted!</h1>"
+   except Exception as e:
+      return "<h1>Error</h1>"
 
 
 #######
