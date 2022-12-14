@@ -9,7 +9,7 @@ from src import db
 ########
 persona = Blueprint('persona', __name__)
 
-@persona.route('/apply', methods=['POST'])
+@persona.route('/apply/persona', methods=['POST'])
 def apply_new_lisence():
 
    try:
@@ -31,11 +31,21 @@ def apply_new_lisence():
    except Exception as e:
       return "<h1>Error</h1>"
 
+@persona.route('/apply/email/<driversID>', methods=['POST'])
+def update_email(driversID):
+
+   # request.form to get form parameter
+   if request.method == 'POST':
+      email = request.form.get('email')
+      cur = db.get_db().cursor()
+      query = 'update `Person` set email = {email} where driversID = {0}'.format(driversID)
+      cur.execute(query)
+
+
 
 #######
 # GET #
 #######
-
 # GET USER FIRST MIDDLE LAST NAME
 @persona.route("/renew/name/<driversID>", methods=['GET'])
 def get_user_name(driversID):
