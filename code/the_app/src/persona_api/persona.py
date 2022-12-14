@@ -7,40 +7,50 @@ persona = Blueprint('persona', __name__)
 
 
 ########
-# POST #
+# POST ############################################################################
 ########
 @persona.route('/apply/persona', methods=['POST'])
 def apply_new_lisence():
 
    try:
-      # request.form to get form parameter
-      if request.method == 'POST':
-         firstName = request.form.get('first')
-         middleName = request.form.get('middle')
-         lastName = request.form.get('last')
-         email = request.form.get('email')
-         state = request.form.get('state')
-         zipCode = request.form.get('zipCode')
-         #restriction = request.form.get('restriction')
-
-         cur = db.get_db().cursor()
-         query = 'INSERT INTO `Person` ("{firstName}", "{middleName}", "{lastName}", "{email}", "{state}", {zipCode},"B")'
-         cur.execute(query)
-
+      cur = db.get_db().cursor()
+      f = request.form.get('firstName')
+      m = request.form.get('middleName')
+      l = request.form.get('lastName')
+      e = request.form.get('email')
+      s = request.form.get('state')
+      z = request.form.get('zipCode')
+      cur.execute(f"""
+      INSERT INTO 
+      `Person` (
+         firstName,
+         middleName,
+         lastName,
+         email,
+         state,
+         zipCode,
+         driversID)
+      VALUES (%s,%s,%s,%s,%s,%s,%s)""", (f,m,l,e,s,z, 3000))
+      cur.connection.commit()
+      
       return "<h1>Submitted!</h1>"
    except Exception as e:
+      print(e)
+
       return "<h1>Error</h1>"
-      
+   
 
 @persona.route('/renew/email/<driversID>', methods=['POST'])
 def update_email(driversID):
 
    # request.form to get form parameter
    if request.method == 'POST':
-      email = request.form.get('email')
+      email = format(request.form.get('email'))
       cur = db.get_db().cursor()
-      query = 'update `Person` set email = {email} where driversID = {0}'.format(driversID)
+      query = f'update `Person` set email = "{email}" where driversID = {0}'.format(driversID)
       cur.execute(query)
+      cur.connection.commit()
+      return "<h1>Submitted!</h1>"
 
 
 @persona.route('/renew/misc/<driversID>', methods=['POST'])
@@ -51,10 +61,10 @@ def update_misc(driversID):
       if request.method == 'POST':
          organDonor = request.form.get('organ')
          veteran = request.form.get('veteran')
-
          cur = db.get_db().cursor()
-         query = 'update `Misc` set organDonor = {organDonor}, veteran = {veteran} where driversID = {0}'.format(driversID)
+         query = f'update `Misc` set organDonor = "{organDonor}", veteran = "{veteran}" where driversID = {0}'.format(driversID)
          cur.execute(query)
+         cur.connection.commit()
 
       return "<h1>Submitted!</h1>"
    except Exception as e:
@@ -63,7 +73,7 @@ def update_misc(driversID):
 
 
 #######
-# GET #
+# GET #######################################################################################
 #######
 # GET USER FIRST MIDDLE LAST NAME
 @persona.route("/renew/name/<driversID>", methods=['GET'])
