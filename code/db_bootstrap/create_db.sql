@@ -1,4 +1,4 @@
-#DROP DATABASE dlars_db;
+DROP DATABASE dlars_db;
 
 CREATE DATABASE dlars_db;
 CREATE USER 'webapp'@'%' IDENTIFIED BY 'iker123';
@@ -163,10 +163,10 @@ INSERT INTO `Person` (firstName, middleName, lastName, email, state, zipCode, re
 VALUES ('Jane', 'Marie', 'Doe', 'j.doe@gmail.com', 'MA', 02111, 'B', 1001),
        ('Joseph', NULL, 'Doe', 'jo.doe@gmail.com', 'MA', 02111, NULL, 1002),
        ('John', NULL, 'Smith', 'johnsmith@company.com', 'MA', 02120, 'B', 1003),
-       ('Carlos', NULL, 'Gimeno', 'chupala@company.com', 'MA', 02120, 'B', 1000)
-       ('Mauricio','Milton','Castillo','chupalamd@company.com','MA',02115,'B',1004)
-       ('Giorgio','Gabriel','Soprano','comepapaya@gmail.com','MA',02111,NULL, 1005)
-       ('Leamsi', NULL, 'ZEMOG', 'leamsizemog@prodigymail.com', 'MA', 02115, 1006);
+       ('Carlos', NULL, 'Gimeno', 'chupala@company.com', 'MA', 02120, 'B', 1000),
+       ('Mauricio','Milton','Castillo','chupalamd@company.com','MA',02115,'B',1004),
+       ('Giorgio','Gabriel','Soprano','comepapaya@gmail.com','MA',02111,NULL, 1005),
+       ('Leamsi', NULL, 'Zemog', 'leamsizemog@prodigymail.com', 'MA', 02115, NULL, 1006);
 
 
 INSERT INTO `ClerkInformation`(firstName, LastName, EmployeeID)
@@ -253,7 +253,7 @@ VALUES ('Joseph', 'Doe', '6172558989', 1000),
        ('Alagam','Zgom', '1723452891', 1006),
        ('Mike', 'James', '85726543241', 1003),
        ('Janet', 'Rodriguez', '8182801805', 1004),
-       ('Mariana', 'Guerra', '8180137200', 1005),;
+       ('Mariana', 'Guerra', '8180137200', 1005);
 
 INSERT INTO `PreValidationData` (roadTestResult, statusOfLearnersPermit, dmvOffice, driversID)
 VALUES ('PASS', 'CURRENT', 'Watertown', 1000),
