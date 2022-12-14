@@ -24,7 +24,7 @@ def apply_new_lisence():
          #restriction = request.form.get('restriction')
 
          cur = db.get_db().cursor()
-         query = 'INSERT INTO `Person` ({firstName}, {middleName}, {lastName}, {email}, {state}, {zipCode}, B")'
+         query = 'INSERT INTO `Person` ("{firstName}", "{middleName}", "{lastName}", "{email}", "{state}", {zipCode},"B")'
          cur.execute(query)
 
       return "<h1>Submitted!</h1>"
