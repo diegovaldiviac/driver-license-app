@@ -30,7 +30,25 @@ def apply_new_lisence():
       return "<h1>Submitted!</h1>"
    except Exception as e:
       return "<h1>Error</h1>"
+      
+@persona.route('/apply', methods=['POST'])
+def Misc():
 
+   try:
+      # request.form to get form parameter
+      if request.method == 'POST':
+         organDonor = request.form.get('first')
+         veteran = request.form.get('middle')
+         driversID = request.form.get('last')
+         #restriction = request.form.get('restriction')
+
+         cur = db.get_db().cursor()
+         query = 'INSERT INTO `Misc` ({organDonor}, {veteran}, {driversID})'
+         cur.execute(query)
+
+      return "<h1>Submitted!</h1>"
+   except Exception as e:
+      return "<h1>Error</h1>"
 
 #######
 # GET #
