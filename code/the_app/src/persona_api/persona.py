@@ -3,12 +3,12 @@ import json
 from src import db
 
 
+persona = Blueprint('persona', __name__)
+
 
 ########
 # POST #
 ########
-persona = Blueprint('persona', __name__)
-
 @persona.route('/apply/persona', methods=['POST'])
 def apply_new_lisence():
 
@@ -32,7 +32,7 @@ def apply_new_lisence():
       return "<h1>Error</h1>"
       
 
-@persona.route('/apply/email/<driversID>', methods=['POST'])
+@persona.route('/renew/email/<driversID>', methods=['POST'])
 def update_email(driversID):
 
    # request.form to get form parameter
@@ -43,7 +43,7 @@ def update_email(driversID):
       cur.execute(query)
 
 
-@persona.route('/apply/misc/<driversID>', methods=['POST'])
+@persona.route('/renew/misc/<driversID>', methods=['POST'])
 def update_misc(driversID):   
 
    try:
@@ -59,6 +59,7 @@ def update_misc(driversID):
       return "<h1>Submitted!</h1>"
    except Exception as e:
       return "<h1>Error</h1>"
+
 
 
 #######
